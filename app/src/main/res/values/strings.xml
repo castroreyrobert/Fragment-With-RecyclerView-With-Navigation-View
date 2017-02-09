@@ -20,4 +20,6 @@
     <string name="expenses">Expenses</string>
     <string name="price">Price</string>
     <string name="boardmate">BoardMate</string>
+    <string name="status">Status</string>
+    <string name="date_started">Date Started</string>
 </resources>

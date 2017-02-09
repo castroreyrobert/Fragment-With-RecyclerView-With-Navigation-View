@@ -33,6 +33,7 @@ public class BoardMateDetailActivity extends AppCompatActivity{
         String number = intent.getStringExtra(MainActivity.BOARDMATE_NUMBER);
         String status  = intent.getStringExtra(MainActivity.BOARDMATE_STATUS);
         double amount = intent.getDoubleExtra(MainActivity.BOARDMATE_AMOUNT,0);
+        String date = intent.getStringExtra(MainActivity.BOARDMATE_DATE);
         MainActivity.FRAGMENT_TO_LOAD ftl = (MainActivity.FRAGMENT_TO_LOAD)
                 intent.getSerializableExtra(MainActivity.FRAGMENT_TO_LAUNCH);
 
@@ -64,6 +65,7 @@ public class BoardMateDetailActivity extends AppCompatActivity{
                 bundle.putString(MainActivity.BOARDMATE_NUMBER, number);
                 bundle.putString(MainActivity.BOARDMATE_STATUS, status);
                 bundle.putDouble(MainActivity.BOARDMATE_AMOUNT, amount);
+                bundle.putString(MainActivity.BOARDMATE_DATE, date);
                 bViewFragment.setArguments(bundle);
                 setTitle("VIEW FRAGMENT");
 
@@ -80,6 +82,7 @@ public class BoardMateDetailActivity extends AppCompatActivity{
                 bundle1.putString(MainActivity.BOARDMATE_NUMBER, number);
                 bundle1.putString(MainActivity.BOARDMATE_STATUS, status);
                 bundle1.putDouble(MainActivity.BOARDMATE_AMOUNT, amount);
+                bundle1.putString(MainActivity.BOARDMATE_DATE, date);
                 bEditFragment.setArguments(bundle1);
                 setTitle("EDIT FRAGMENT");
                 break;

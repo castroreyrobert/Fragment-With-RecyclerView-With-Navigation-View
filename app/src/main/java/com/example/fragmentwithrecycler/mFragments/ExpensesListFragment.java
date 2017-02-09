@@ -21,6 +21,7 @@ import java.util.List;
 
 
 public class ExpensesListFragment extends Fragment {
+
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     List<Expenses> expensesList;

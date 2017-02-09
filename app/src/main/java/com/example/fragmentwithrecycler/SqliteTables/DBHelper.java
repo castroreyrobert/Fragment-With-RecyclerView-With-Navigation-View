@@ -18,12 +18,14 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String COLUMN_BOARDMATE_NUMBER = "b_number";
     public static final String COLUMN_BOARDMATE_PAYABLE = "b_payable";
     public static final String COLUMN_BOARDMATE_STATUS = "b_status";
+    public static final String COLUMN_BOARDMATE_DATE = "b_date";
 
     // Expenses table property
     public static final String TB_EXPENSES = "expenses_tb";
     public static final String COLUMN_EXPENSES_ID = "e_id";
     public static final String COLUMN_EXPENSES_NAME = "e_name";
     public static final String COLUMN_EXPENSES_AMOUNT = "e_amount";
+    public static final String COLUMN_EXPENSES_DATE = "e_date";
 
     // Cash table property
     public static final String TB_CASH = "cash_tb";
@@ -39,12 +41,14 @@ public class DBHelper extends SQLiteOpenHelper {
             + COLUMN_BOARDMATE_ADDRESS + " TEXT NOT NULL, "
             + COLUMN_BOARDMATE_NUMBER + " TEXT NOT NULL, "
             + COLUMN_BOARDMATE_PAYABLE + " REAL NOT NULL, "
-            + COLUMN_BOARDMATE_STATUS + " TEXT NOT NULL );";
+            + COLUMN_BOARDMATE_STATUS + " TEXT NOT NULL, "
+            + COLUMN_BOARDMATE_DATE + " TEXT NOT NULL );";
 
     private static final String CREATE_QUERY_TABLE_EXPENSES = "CREATE TABLE " + TB_EXPENSES + "( "
             + COLUMN_EXPENSES_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + COLUMN_EXPENSES_NAME + " TEXT NOT NULL, "
-            + COLUMN_EXPENSES_AMOUNT + " REAL NOT NULL );";
+            + COLUMN_EXPENSES_AMOUNT + " REAL NOT NULL, "
+            + COLUMN_EXPENSES_DATE + " TEXT NOT NULL )";
 
 
     public DBHelper(Context context) {

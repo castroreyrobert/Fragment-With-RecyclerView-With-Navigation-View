@@ -13,18 +13,20 @@ public class BoardMate {
     private String mNumber;
     private double mPayable;
     private String mStatus;
+    private String mDateStayed;
 
   //  public enum Status{FULLYPAID, INITIALLYPAID, UNPAID}
 
     public BoardMate(){}
 
-    public BoardMate(long id, String name, String address, String number, double payable, String status){
+    public BoardMate(long id, String name, String address, String number, double payable, String status, String date){
         this.mId = id;
         this.mName = name;
         this.mAddress = address;
         this.mNumber = number;
         this.mPayable = payable;
         this.mStatus = status;
+        this.mDateStayed = date;
     }
 
     public String getmAddress() {
@@ -51,6 +53,8 @@ public class BoardMate {
         return mStatus;
     }
 
+    public String getmDateStayed(){return mDateStayed;}
+
     public void setmAddress(String mAddress) {
         this.mAddress = mAddress;
     }
@@ -75,23 +79,10 @@ public class BoardMate {
         this.mStatus = mStatus;
     }
 
+    public void setmDateStayed(String mDateStayed){this.mDateStayed = mDateStayed;}
+
     public String toString(){
         return "ID: " + mId + " Name: " + mName + " Address: " + mAddress + " Number: " + mNumber
-                + " Payable: " + mPayable + " Status: " + mStatus;
+                + " Payable: " + mPayable + " Status: " + mStatus + " Date Started: " + mDateStayed;
     }
-
-   /* public int getAssociatedDrawable(){
-        return categoryToDrawable(mStatus);
-    }
-    public static int categoryToDrawable(Status boardmateStatus){
-        switch (boardmateStatus){
-            case FULLYPAID:
-                return R.drawable.personal;
-            case INITIALLYPAID:
-                return R.drawable.technical;
-            case UNPAID:
-                return R.drawable.home;
-        }
-        return R.drawable.android;
-    }*/
 }

@@ -17,9 +17,7 @@ import com.example.fragmentwithrecycler.models.BoardMate;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class BoardMateListFragment extends Fragment {
 
     private RecyclerView rv;

@@ -13,7 +13,7 @@ import com.example.fragmentwithrecycler.models.BoardMate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class    BoardMatesDB {
+public class BoardMatesDB {
 
     public static final String TAG = "BoardmatesDB";
 
@@ -23,7 +23,7 @@ public class    BoardMatesDB {
     private Context mContext;
     private String[] mAllColumns = {DBHelper.COLUMN_BOARDMATE_ID, DBHelper.COLUMN_BOARDMATE_NAME,
             DBHelper.COLUMN_BOARDMATE_ADDRESS, DBHelper.COLUMN_BOARDMATE_NUMBER,
-            DBHelper.COLUMN_BOARDMATE_PAYABLE, DBHelper.COLUMN_BOARDMATE_PAYABLE};
+            DBHelper.COLUMN_BOARDMATE_PAYABLE, DBHelper.COLUMN_BOARDMATE_STATUS, DBHelper.COLUMN_BOARDMATE_DATE};
 
     public BoardMatesDB(Context context){
         this.mContext = context;
@@ -43,13 +43,14 @@ public class    BoardMatesDB {
     public void close(){mDBHelper.close();}
 
     public BoardMate addBoardmate(String name, String address, String number, double payable,
-                                  String status){
+                                  String status, String date){
         ContentValues contentValues = new ContentValues();
         contentValues.put(DBHelper.COLUMN_BOARDMATE_NAME, name);
         contentValues.put(DBHelper.COLUMN_BOARDMATE_ADDRESS, address);
         contentValues.put(DBHelper.COLUMN_BOARDMATE_NUMBER, number);
         contentValues.put(DBHelper.COLUMN_BOARDMATE_PAYABLE, payable);
         contentValues.put(DBHelper.COLUMN_BOARDMATE_STATUS, status + "");
+        contentValues.put(DBHelper.COLUMN_BOARDMATE_DATE, date);
 
         long insertID = mDatabase.insert(DBHelper.TB_BOARDMATES, null, contentValues);
         Cursor res = mDatabase.query(DBHelper.TB_BOARDMATES,mAllColumns,
@@ -61,7 +62,7 @@ public class    BoardMatesDB {
     }
 
     public long updateBoardMate(long idToUpdate, String name, String address, String number,
-                                double amount, String stats){
+                                double amount, String stats, String date){
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(DBHelper.COLUMN_BOARDMATE_NAME, name);
@@ -69,6 +70,7 @@ public class    BoardMatesDB {
         contentValues.put(DBHelper.COLUMN_BOARDMATE_NUMBER, number);
         contentValues.put(DBHelper.COLUMN_BOARDMATE_PAYABLE, amount);
         contentValues.put(DBHelper.COLUMN_BOARDMATE_STATUS, stats);
+        contentValues.put(DBHelper.COLUMN_BOARDMATE_DATE, date);
 
         return mDatabase.update(DBHelper.TB_BOARDMATES,contentValues,
                 DBHelper.COLUMN_BOARDMATE_ID + " = " + idToUpdate, null);
@@ -95,6 +97,7 @@ public class    BoardMatesDB {
                 boardMate.setmNumber(cursor.getString(3));
                 boardMate.setmPayable(cursor.getDouble(4));
                 boardMate.setmStatus(cursor.getString(5));
+                boardMate.setmDateStayed(cursor.getString(6));
                 listBoardMates.add(boardMate);
             }while (cursor.moveToNext());
         }
@@ -104,7 +107,7 @@ public class    BoardMatesDB {
 
     private BoardMate cursorToBoardMate(Cursor cursor){
         BoardMate newBoardMate = new BoardMate(cursor.getLong(0), cursor.getString(1),cursor.getString(2),
-                cursor.getString(3),cursor.getDouble(4),cursor.getString(5));
+                cursor.getString(3),cursor.getDouble(4),cursor.getString(5), cursor.getString(6));
         return newBoardMate;
     }
 }

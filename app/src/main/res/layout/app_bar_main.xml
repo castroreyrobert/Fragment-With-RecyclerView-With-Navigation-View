@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:background="@color/colorPrimaryDark"
     tools:context="com.example.fragmentwithrecycler.activities.MainActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -24,11 +25,56 @@
     <include layout="@layout/content_main" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/fabMore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_menu_add" />
+        app:fabSize="normal"
+        app:srcCompat="@drawable/ic_more_vert_black_24px"/>
 
+    <LinearLayout
+        android:id="@+id/add_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="100dp"
+        android:layout_marginEnd="25dp"
+        android:visibility="gone">
+        <TextView
+            android:text="ADD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabAdd"
+            app:fabSize="mini"
+            android:src="@drawable/ic_add_circle_outline_24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/total_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="150dp"
+        android:layout_marginEnd="25dp"
+        android:visibility="gone">
+        <TextView
+            android:text="TOTAL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabTotal"
+            app:fabSize="mini"
+            android:src="@drawable/ic_account_balance_black_24px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

@@ -5,4 +5,5 @@
     <color name="colorAccent">#40C4FF</color>
     <color name="indigo">#3F51B5</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="colorCardView">#009688</color>
 </resources>

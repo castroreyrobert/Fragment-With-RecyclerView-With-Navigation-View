@@ -7,7 +7,9 @@
     android:layout_margin="5dp"
     android:orientation="horizontal"
     card_view:cardCornerRadius="5dp"
-    card_view:cardUseCompatPadding="true">
+    card_view:cardUseCompatPadding="true"
+    card_view:cardBackgroundColor="@color/colorCardView"
+    >
 
     <LinearLayout
         android:orientation="horizontal"
@@ -19,7 +21,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            card_view:srcCompat="@drawable/android"
+            card_view:srcCompat="@drawable/icon_receipt"
             android:padding="@dimen/activity_horizontal_margin"
             android:id="@+id/imageView3" />
         <LinearLayout

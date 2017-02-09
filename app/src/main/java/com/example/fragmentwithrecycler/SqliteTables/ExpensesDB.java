@@ -22,7 +22,7 @@ public class ExpensesDB {
     private Context mContext;
 
     private String[] mAllColumns = {DBHelper.COLUMN_EXPENSES_ID, DBHelper.COLUMN_EXPENSES_NAME,
-            DBHelper.COLUMN_EXPENSES_AMOUNT};
+            DBHelper.COLUMN_EXPENSES_AMOUNT, DBHelper.COLUMN_EXPENSES_DATE};
 
     public ExpensesDB(Context context) {
         this.mContext = context;
@@ -41,10 +41,11 @@ public class ExpensesDB {
         mDbHelper.close();
     }
 
-    public Expenses addExpenses(String name, double amount){
+    public Expenses addExpenses(String name, double amount, String date){
         ContentValues contentValues = new ContentValues();
         contentValues.put(DBHelper.COLUMN_EXPENSES_NAME, name);
         contentValues.put(DBHelper.COLUMN_EXPENSES_AMOUNT, amount);
+        contentValues.put(DBHelper.COLUMN_EXPENSES_DATE, date);
 
         long insertID = mDatabase.insert(DBHelper.TB_EXPENSES,null,contentValues);
         Cursor res = mDatabase.query(DBHelper.TB_EXPENSES, mAllColumns,
@@ -53,6 +54,21 @@ public class ExpensesDB {
         Expenses newExpense = cursorToExpense(res);
         res.close();
         return newExpense;
+    }
+
+    public long updateExpenses(long idToUpdate, String name, double amount, String date){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DBHelper.COLUMN_EXPENSES_NAME, name);
+        contentValues.put(DBHelper.COLUMN_EXPENSES_AMOUNT, amount);
+        contentValues.put(DBHelper.COLUMN_EXPENSES_DATE, date);
+
+        return mDatabase.update(DBHelper.TB_EXPENSES, contentValues,
+                DBHelper.COLUMN_EXPENSES_ID + " = "  + idToUpdate, null);
+    }
+
+    public long deleteExpenses(long idToDelete){
+        return mDatabase.delete(DBHelper.TB_EXPENSES, DBHelper.COLUMN_EXPENSES_ID + " = " + idToDelete,
+                null);
     }
 
     public List<Expenses> getAllExpenses(){
@@ -67,6 +83,7 @@ public class ExpensesDB {
                 expenses.seteId(cursor.getLong(0));
                 expenses.seteName(cursor.getString(1));
                 expenses.seteAmount(cursor.getDouble(2));
+                expenses.seteDate(cursor.getString(3));
                 listExpenses.add(expenses);
             }while (cursor.moveToNext());
         }
@@ -74,7 +91,8 @@ public class ExpensesDB {
     }
 
     private Expenses cursorToExpense(Cursor cursor){
-        Expenses newExpense = new Expenses(cursor.getLong(0),cursor.getString(1),cursor.getDouble(2));
+        Expenses newExpense = new Expenses(cursor.getLong(0),cursor.getString(1),cursor.getDouble(2),
+                cursor.getString(3));
         return newExpense;
     }
 

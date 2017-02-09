@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -50,6 +51,10 @@ public class RecyclerAdapterBoardMate extends RecyclerView.Adapter<RecyclerAdapt
         holder.tvAddress.setText(boardMateList.get(position).getmAddress());
         holder.tvNumber.setText(boardMateList.get(position).getmNumber());
         holder.tvPayable.setText(String.valueOf(boardMateList.get(position).getmPayable()));
+        holder.tvDateStarted.setText(boardMateList.get(position).getmDateStayed());
+        if (boardMateList.get(position).getmStatus().equals("FULLYPAID")){
+            holder.checkBoxStats.setChecked(true);
+        }
     }
 
     @Override
@@ -59,8 +64,9 @@ public class RecyclerAdapterBoardMate extends RecyclerView.Adapter<RecyclerAdapt
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
-        public TextView tvName, tvAddress, tvNumber, tvPayable;
+        public TextView tvName, tvAddress, tvNumber, tvPayable, tvDateStarted;
         public ImageView imageIcon;
+        public CheckBox checkBoxStats;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -69,8 +75,37 @@ public class RecyclerAdapterBoardMate extends RecyclerView.Adapter<RecyclerAdapt
             tvNumber = (TextView) itemView.findViewById(R.id.textViewNumber);
             imageIcon = (ImageView) itemView.findViewById(R.id.imageView);
             tvPayable = (TextView) itemView.findViewById(R.id.textViewPayable);
+            tvDateStarted = (TextView)itemView.findViewById(R.id.tvDate);
+            checkBoxStats = (CheckBox)itemView.findViewById(R.id.checkBoxStatus);
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
+            checkBoxStats.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    bHelper = new BoardMatesDB(context);
+                    bHelper.open();
+
+                    if (checkBoxStats.isChecked()){
+                        bHelper.updateBoardMate(boardMateList.get(getAdapterPosition()).getmId(),
+                                boardMateList.get(getAdapterPosition()).getmName(),
+                                boardMateList.get(getAdapterPosition()).getmAddress(),
+                                boardMateList.get(getAdapterPosition()).getmNumber(),
+                                boardMateList.get(getAdapterPosition()).getmPayable(),
+                                "FULLYPAID",
+                                boardMateList.get(getAdapterPosition()).getmDateStayed()
+                                );
+                    }else {
+                        bHelper.updateBoardMate(boardMateList.get(getAdapterPosition()).getmId(),
+                                boardMateList.get(getAdapterPosition()).getmName(),
+                                boardMateList.get(getAdapterPosition()).getmAddress(),
+                                boardMateList.get(getAdapterPosition()).getmNumber(),
+                                boardMateList.get(getAdapterPosition()).getmPayable(),
+                                "UNPAID",
+                                boardMateList.get(getAdapterPosition()).getmDateStayed()
+                        );
+                    }
+                }
+            });
         }
 
         @Override
@@ -110,6 +145,7 @@ public class RecyclerAdapterBoardMate extends RecyclerView.Adapter<RecyclerAdapt
                             intent.putExtra(MainActivity.BOARDMATE_NUMBER, boardMateList.get(getAdapterPosition()).getmNumber());
                             intent.putExtra(MainActivity.BOARDMATE_STATUS, boardMateList.get(getAdapterPosition()).getmStatus());
                             intent.putExtra(MainActivity.BOARDMATE_AMOUNT, boardMateList.get(getAdapterPosition()).getmPayable());
+                            intent.putExtra(MainActivity.BOARDMATE_DATE, boardMateList.get(getAdapterPosition()).getmDateStayed());
                             context.startActivity(intent);
                             break;
                         case R.id.menu_delete:
