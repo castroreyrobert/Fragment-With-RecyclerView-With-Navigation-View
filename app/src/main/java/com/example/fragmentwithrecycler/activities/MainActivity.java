@@ -26,6 +26,7 @@ import com.example.fragmentwithrecycler.R;
 import com.example.fragmentwithrecycler.SqliteTables.BoardMatesDB;
 import com.example.fragmentwithrecycler.SqliteTables.ExpensesDB;
 import com.example.fragmentwithrecycler.mFragments.BoardMateListFragment;
+import com.example.fragmentwithrecycler.mFragments.CashFragment;
 import com.example.fragmentwithrecycler.mFragments.ExpensesListFragment;
 import com.example.fragmentwithrecycler.models.BoardMate;
 import com.example.fragmentwithrecycler.models.Expenses;
@@ -67,7 +68,7 @@ public class MainActivity extends AppCompatActivity
             "com.example.fragmentwithrecycler.activities.EXPENSES_DATE";
 
     public enum FRAGMENT_TO_LOAD {VIEW, EDIT, ADD}
-    public enum NAVIGATION_TO_LOAD {EXPENSES, BOARDMATE}
+    public enum NAVIGATION_TO_LOAD {EXPENSES, BOARDMATE,CASH}
     public static NAVIGATION_TO_LOAD navigation_to_load;
 
     private FragmentManager fManager;
@@ -139,11 +140,7 @@ public class MainActivity extends AppCompatActivity
         fabTotal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (navigation_to_load == NAVIGATION_TO_LOAD.BOARDMATE) {
-                    totalBoardMateAmount(view);
-                } else if (navigation_to_load == NAVIGATION_TO_LOAD.EXPENSES) {
-                    totalExpenses(view);
-                }
+               makeSnackBar(navigation_to_load,view);
             }
         });
 
@@ -199,6 +196,12 @@ public class MainActivity extends AppCompatActivity
                 setTitle("Expenses List");
                 navigation_to_load = NAVIGATION_TO_LOAD.EXPENSES;
                 break;
+            case CASH:
+                CashFragment cFragment = new CashFragment();
+                fTransaction.replace(R.id.content_main, cFragment, "CASH_COMPUTATION");
+                setTitle("Cash Tracker");
+                navigation_to_load = NAVIGATION_TO_LOAD.CASH;
+                break;
         }
         fTransaction.commit();
     }
@@ -240,13 +243,20 @@ public class MainActivity extends AppCompatActivity
             fTransaction.replace(R.id.content_main, bFragment, "BOARDMATE_LIST_FRAGMENT");
             setTitle("BoardMate List");
             navigation_to_load = NAVIGATION_TO_LOAD.BOARDMATE;
+
         } else if (id == R.id.nav_expenses) {
             ExpensesListFragment eFragment = new ExpensesListFragment();
             fTransaction.replace(R.id.content_main, eFragment, "EXPENSES_LIST_FRAGMENT");
             setTitle("Expenses List");
             navigation_to_load = NAVIGATION_TO_LOAD.EXPENSES;
 
-        } else if (id == R.id.nav_share) {
+        }else if (id == R.id.nav_cash){
+            CashFragment cFragment = new CashFragment();
+            fTransaction.replace(R.id.content_main, cFragment, "CASH_COMPUTATION");
+            setTitle("Cash Tracker");
+            navigation_to_load = NAVIGATION_TO_LOAD.CASH;
+
+        }else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
 
@@ -273,9 +283,8 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    private void totalExpenses(View view){
+    public double totalExpenses(){
         // For the total of expenses amount;
-        //TODO: get the total:
         double total = 0;
 
         expensesDB = new ExpensesDB(this);
@@ -285,42 +294,55 @@ public class MainActivity extends AppCompatActivity
         for (int i = 0; i < expensesList.size(); i++){
             total +=  expensesList.get(i).geteAmount();
         }
-        snackbar = Snackbar.make(view,"Total: " + String.valueOf(total),Snackbar.LENGTH_LONG)
-                .setAction("HIDE", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        //TODO:
-                    }
-                });
-        snackbar.setActionTextColor(Color.RED);
-        snackbar.show();
-        TextView tv = (TextView) snackbar.getView().findViewById(android.support.design.R.id.snackbar_text);
-        tv.setTextColor(Color.CYAN);
-        snackbar.show();
+       return total;
     }
 
 
-    private void totalBoardMateAmount(View view){
+    public double totalBoardMateAmount(){
         // For the total of boardmate payable
-        double total = 0;
-        boardMatesDB = new BoardMatesDB(this);
+        double totalBoardMate = 0;
+        boardMatesDB = new BoardMatesDB(getApplication());
         boardMatesDB.open();
         boardMateList = new ArrayList<>();
         boardMateList = boardMatesDB.getAllBoardMates();
         for (int i=0; i<boardMateList.size(); i++){
-            total += boardMateList.get(i).getmPayable();
+            totalBoardMate += boardMateList.get(i).getmPayable();
         }
-        snackbar = Snackbar.make(view, "Total: " + String.valueOf(total),Snackbar.LENGTH_INDEFINITE)
-                .setAction("HIDE", new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Handles user clicks the HIDE
-            }
-        });
-        snackbar.setActionTextColor(Color.RED);
-        snackbar.show();
-        TextView tv = (TextView) snackbar.getView().findViewById(android.support.design.R.id.snackbar_text);
-        tv.setTextColor(Color.CYAN);
-        snackbar.show();
+        return  totalBoardMate;
     }
+
+    private void makeSnackBar(NAVIGATION_TO_LOAD ntl,View view){
+        switch (ntl){
+            case EXPENSES:
+                snackbar = Snackbar.make(view, "Total: " + String.valueOf(totalExpenses())
+                        ,Snackbar.LENGTH_INDEFINITE)
+                        .setAction("HIDE", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                // Handles user clicks the HIDE
+                            }
+                        });
+                snackbar.setActionTextColor(Color.RED);
+                snackbar.show();
+                TextView tv = (TextView) snackbar.getView().findViewById(android.support.design.R.id.snackbar_text);
+                tv.setTextColor(Color.CYAN);
+                snackbar.show();
+                break;
+            case BOARDMATE:
+                snackbar = Snackbar.make(view, "Total: " + String.valueOf(totalBoardMateAmount())
+                        ,Snackbar.LENGTH_INDEFINITE)
+                        .setAction("HIDE", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                // Handles user clicks the HIDE
+                            }
+                        });
+                snackbar.setActionTextColor(Color.RED);
+                snackbar.show();
+                TextView tv1 = (TextView) snackbar.getView().findViewById(android.support.design.R.id.snackbar_text);
+                tv1.setTextColor(Color.CYAN);
+                snackbar.show();
+        }
+    }
+
 }

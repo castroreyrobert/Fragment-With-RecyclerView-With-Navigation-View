@@ -1,0 +1,124 @@
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="5dp"
+    android:orientation="horizontal"
+    card_view:cardCornerRadius="5dp"
+    card_view:cardUseCompatPadding="true"
+    card_view:cardBackgroundColor="@color/colorCardView"
+    >
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/activity_horizontal_margin"
+    tools:context="com.example.fragmentwithrecycler.mFragments.CashFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:text="Title"
+            android:id="@+id/titleBoarders"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title.Inverse"/>
+        <TextView
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:text="Amount"
+            android:id="@+id/titlePrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title.Inverse"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_margin="12dp"
+            android:text="Boarders Total"
+            android:id="@+id/titleBoardMatesTotal"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"/>
+        <TextView
+            android:text="₱"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"/>
+
+        <TextView
+            android:layout_margin="12dp"
+            android:text="Amount"
+            android:id="@+id/boardMatesTotalAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_margin="12dp"
+            android:text="Expenses Total"
+            android:id="@+id/titleExpensesTotal"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"/>
+        <TextView
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
+            android:text="₱"
+            android:layout_marginTop="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_margin="12dp"
+            android:text="Amount"
+            android:id="@+id/expensesTotalAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_margin="12dp"
+            android:text="Total"
+            android:id="@+id/titleExpenses"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"/>
+        <TextView
+            android:text="₱"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"/>
+
+        <TextView
+            android:layout_margin="12dp"
+            android:text="Amount"
+            android:id="@+id/totalAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"/>
+    </LinearLayout>
+</LinearLayout>
+</android.support.v7.widget.CardView>
