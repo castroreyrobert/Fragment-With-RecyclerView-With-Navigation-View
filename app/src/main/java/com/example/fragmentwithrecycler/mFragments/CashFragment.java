@@ -1,6 +1,7 @@
 package com.example.fragmentwithrecycler.mFragments;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -48,7 +49,10 @@ public class CashFragment extends Fragment {
     private void setTextViews(){
         bTotal.setText(String.valueOf(totalBoardMateAmount()));
         eTotal.setText(String.valueOf(totalExpenses()));
-        totalAmount.setText(String.valueOf(totalBoardMateAmount()+totalExpenses()));
+        if (totalBoardMateAmount()<totalExpenses()){
+            totalAmount.setTextColor(Color.RED);
+        }
+        totalAmount.setText(String.valueOf(totalBoardMateAmount() - totalExpenses()));
     }
 
     private double totalExpenses(){
