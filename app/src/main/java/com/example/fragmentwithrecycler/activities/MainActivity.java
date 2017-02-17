@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabMore);
         FloatingActionButton fabAdd = (FloatingActionButton)findViewById(R.id.fabAdd);
         FloatingActionButton fabTotal = (FloatingActionButton)findViewById(R.id.fabTotal);
@@ -223,6 +224,14 @@ public class MainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }else if (id == R.id.menu_reset_payment){
+            resetPayment();
+            launchNavigation(NAVIGATION_TO_LOAD.BOARDMATE);
+            return true;
+        }else if (id  == R.id.menu_calculate_payment){
+            calculatePayment();
+            launchNavigation(NAVIGATION_TO_LOAD.BOARDMATE);
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -342,6 +351,35 @@ public class MainActivity extends AppCompatActivity
                 TextView tv1 = (TextView) snackbar.getView().findViewById(android.support.design.R.id.snackbar_text);
                 tv1.setTextColor(Color.CYAN);
                 snackbar.show();
+        }
+    }
+
+    //when the user clicks Reset Payment in the menu
+    private void resetPayment(){
+        boardMatesDB = new BoardMatesDB(getApplication());
+        boardMatesDB.open();
+        boardMateList = new ArrayList<>();
+        boardMateList = boardMatesDB.getAllBoardMates();
+        for (int i = 0; i < boardMateList.size(); i++) {
+            boardMatesDB.updateBoardMate(boardMateList.get(i).getmId(),
+                    boardMateList.get(i).getmName(),boardMateList.get(i).getmAddress(),
+                    boardMateList.get(i).getmNumber(), 0.00, boardMateList.get(i).getmStatus(),
+                    boardMateList.get(i).getmDateStayed());
+        }
+    }
+
+    //For calculating the initial Payable of the boarders
+    private void calculatePayment(){
+        boardMatesDB = new BoardMatesDB(getApplication());
+        boardMatesDB.open();
+        boardMateList = new ArrayList<>();
+        boardMateList = boardMatesDB.getAllBoardMates();
+        double calculatePayment = totalExpenses()/boardMateList.size();
+        for (int i = 0; i < boardMateList.size(); i++) {
+            boardMatesDB.updateBoardMate(boardMateList.get(i).getmId(),
+                    boardMateList.get(i).getmName(),boardMateList.get(i).getmAddress(),
+                    boardMateList.get(i).getmNumber(), calculatePayment, boardMateList.get(i).getmStatus(),
+                    boardMateList.get(i).getmDateStayed());
         }
     }
 
