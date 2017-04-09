@@ -51,7 +51,6 @@ public class RecyclerAdapterBoardMate extends RecyclerView.Adapter<RecyclerAdapt
         holder.tvAddress.setText(boardMateList.get(position).getmAddress());
         holder.tvNumber.setText(boardMateList.get(position).getmNumber());
         holder.tvPayable.setText(String.valueOf(boardMateList.get(position).getmPayable()));
-        holder.tvDateStarted.setText(boardMateList.get(position).getmDateStayed());
         if (boardMateList.get(position).getmStatus().equals("FULLYPAID")){
             holder.checkBoxStats.setChecked(true);
         }
@@ -64,7 +63,7 @@ public class RecyclerAdapterBoardMate extends RecyclerView.Adapter<RecyclerAdapt
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
-        public TextView tvName, tvAddress, tvNumber, tvPayable, tvDateStarted;
+        public TextView tvName, tvAddress, tvNumber, tvPayable;
         public ImageView imageIcon;
         public CheckBox checkBoxStats;
 
@@ -75,7 +74,6 @@ public class RecyclerAdapterBoardMate extends RecyclerView.Adapter<RecyclerAdapt
             tvNumber = (TextView) itemView.findViewById(R.id.textViewNumber);
             imageIcon = (ImageView) itemView.findViewById(R.id.imageView);
             tvPayable = (TextView) itemView.findViewById(R.id.textViewPayable);
-            tvDateStarted = (TextView)itemView.findViewById(R.id.tvDate);
             checkBoxStats = (CheckBox)itemView.findViewById(R.id.checkBoxStatus);
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);

@@ -33,6 +33,7 @@
             android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/activity_horizontal_margin"
+            android:textColor="@color/colorWhite"
             android:id="@+id/textViewExpensesName"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -42,6 +43,7 @@
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/colorWhite"
                 android:id="@+id/textViewPrice"
                 />
 </LinearLayout>
